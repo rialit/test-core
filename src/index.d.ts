@@ -13,6 +13,8 @@ declare module '*.png' {
     export default content;
 }
 
+// test write
+
 /**
  * Метод для локализации фраз и предложений
  * @example {__('{count} {count, plural, one{день} few{дня} many{дней}}', {count: 2})}
