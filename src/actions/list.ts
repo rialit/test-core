@@ -12,7 +12,7 @@ import {filterItems} from '../utils/data';
 
 export interface IList {
     /**
-    * Url, который вернет коллекцию элементов.
+    * Test test test.
     * @example api/v1/articles
     */
     action?: string,

@@ -13,6 +13,7 @@ jobs:
           node-version: ^14.15.0 || ^16.10.0 || >=18.0.0
       - run: yarn
       - run: yarn tsc
+      - run: yarn docs
       - run: cp ./{package.json,LICENSE,README.md} dist/
       - run: cp src/index.d.ts dist/
       - run: cp docs/docs-autogen-result.json dist/
