@@ -12,7 +12,6 @@ jobs:
         with:
           node-version: ^14.15.0 || ^16.10.0 || >=18.0.0
       - run: yarn
-      - run: yarn upgrade @steroidsjs/core
       - run: yarn tsc
       - run: cp ./{package.json,LICENSE,README.md} dist/
       - run: cp src/index.d.ts dist/
