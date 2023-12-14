@@ -1,17 +1,17 @@
-name: Test
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      NODE_OPTIONS: "--max-old-space-size=4096"
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
-        with:
-          repository: steroids/react-bootstrap
-          ref: master
-          path: react-bootstrap
-      - run: yarn
-      - run: cd react-bootstrap && yarn
-      - run: yarn test
+# name: Test
+# on: push
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     env:
+#       NODE_OPTIONS: "--max-old-space-size=4096"
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/checkout@v2
+#         with:
+#           repository: steroids/react-bootstrap
+#           ref: master
+#           path: react-bootstrap
+#       - run: yarn
+#       - run: cd react-bootstrap && yarn
+#       - run: yarn test

@@ -4636,6 +4636,14 @@
                     "required": false,
                     "type": "string | number",
                     "example": "2"
+                },
+                {
+                    "name": "useSameSelectedItemId",
+                    "decorators": [],
+                    "description": "При повторном нажатии на выбранный элемент из дерева, он продолжит отображаться как активный.",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true"
                 }
             ],
             "methods": [
@@ -7413,7 +7421,7 @@
                     ]
                 },
                 {
-                    "name": "onEventSubmit",
+                    "name": "onModalFormSubmit",
                     "decorators": [],
                     "description": "",
                     "required": false,
@@ -7451,6 +7459,15 @@
                 "IUiComponent"
             ],
             "properties": [
+                {
+                    "name": "additionalViewProps",
+                    "decorators": [],
+                    "description": "Дополнительные свойства, которые передаются во view компонента",
+                    "required": false,
+                    "type": "Record",
+                    "example": null,
+                    "defaultValue": null
+                },
                 {
                     "name": "calendarModalProps",
                     "decorators": [],
@@ -7535,16 +7552,16 @@
             "tags": {},
             "defaultProps": null,
             "extends": [
-                "Omit<ICalendarSystemProps",
-                "'calendarGroups'>"
+                "Pick<ICalendarSystemProps",
+                "'className' | 'style' | 'additionalViewProps'>"
             ],
             "properties": [
                 {
-                    "name": "allHours",
+                    "name": "additionalViewProps",
                     "decorators": [],
-                    "description": "",
-                    "required": true,
-                    "type": "string[]",
+                    "description": "Дополнительные свойства, которые передаются во view компонента",
+                    "required": false,
+                    "type": "Record",
                     "example": null
                 },
                 {
@@ -7556,11 +7573,11 @@
                     "example": null
                 },
                 {
-                    "name": "currentWeekDays",
+                    "name": "className",
                     "decorators": [],
-                    "description": "",
-                    "required": true,
-                    "type": "IDay[]",
+                    "description": "Дополнительный CSS-класс для элемента отображения",
+                    "required": false,
+                    "type": "string",
                     "example": null
                 },
                 {
@@ -7588,11 +7605,11 @@
                     "example": null
                 },
                 {
-                    "name": "monthCalendarDays",
+                    "name": "monthGridProps",
                     "decorators": [],
                     "description": "",
                     "required": true,
-                    "type": "IDay[]",
+                    "type": "{monthGridCalendarDays: IDay[], monthGridWeekDays: string[], getEventsFromDate: null, openCreateModal: null, openEditModal: null}",
                     "example": null
                 },
                 {
@@ -7604,69 +7621,25 @@
                     "example": null
                 },
                 {
-                    "name": "selectedCalendarGroupsIds",
+                    "name": "style",
                     "decorators": [],
-                    "description": "",
-                    "required": true,
-                    "type": "number[]",
-                    "example": null
+                    "description": "Объект CSS стилей",
+                    "required": false,
+                    "type": "CSSProperties",
+                    "example": "{width: '45%'}"
                 },
                 {
-                    "name": "weekDays",
+                    "name": "weekGridProps",
                     "decorators": [],
                     "description": "",
                     "required": true,
-                    "type": "string[]",
+                    "type": "{weekGridCurrentWeekDays: IDay[], weekGridTwentyFourHoursArray: string[], getEventsFromDate: null, openCreateModal: null, openEditModal: null}",
                     "example": null
                 }
             ],
             "methods": [
                 {
-                    "name": "applyControl",
-                    "decorators": [],
-                    "description": "",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "event",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "MouseEvent",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "getEventsFromDate",
-                    "decorators": [],
-                    "description": "",
-                    "required": false,
-                    "type": "IEvent[]",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "dateFromDay",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "Date",
-                            "example": null
-                        },
-                        {
-                            "name": "currentCalendarType",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "default",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "onChangeCalendarType",
+                    "name": "handleCalendarTypeChange",
                     "decorators": [],
                     "description": "",
                     "required": false,
@@ -7679,6 +7652,24 @@
                             "description": "",
                             "required": true,
                             "type": "string",
+                            "example": null
+                        }
+                    ]
+                },
+                {
+                    "name": "handleControlClick",
+                    "decorators": [],
+                    "description": "",
+                    "required": false,
+                    "type": "void",
+                    "example": null,
+                    "parameters": [
+                        {
+                            "name": "event",
+                            "decorators": [],
+                            "description": "",
+                            "required": true,
+                            "type": "MouseEvent",
                             "example": null
                         }
                     ]
@@ -7702,7 +7693,7 @@
                     ]
                 },
                 {
-                    "name": "onMonthChange",
+                    "name": "onInnerCalendarChangeMonth",
                     "decorators": [],
                     "description": "",
                     "required": false,
@@ -7733,24 +7724,6 @@
                             "description": "",
                             "required": false,
                             "type": "IDay",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "openEditModal",
-                    "decorators": [],
-                    "description": "",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "event",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "IEvent",
                             "example": null
                         }
                     ]
@@ -15142,7 +15115,7 @@
                 "'items'>",
                 "IUiComponent",
                 "Pick<ITreeProps",
-                "'levelPadding' | 'alwaysOpened'>"
+                "'levelPadding' | 'alwaysOpened' | 'hasIcon' | 'customIcon'>"
             ],
             "properties": [
                 {
@@ -15187,6 +15160,15 @@
                     "description": "Дополнительный CSS-класс для элемента отображения",
                     "required": false,
                     "type": "string",
+                    "example": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "Кастомная иконка, заменяющая иконку раскрытия по умолчанию",
+                    "required": false,
+                    "type": "string | ReactElement",
                     "example": null,
                     "defaultValue": null
                 },
@@ -15481,7 +15463,9 @@
             "tags": {},
             "defaultProps": null,
             "extends": [
-                "IFieldWrapperOutputProps"
+                "IFieldWrapperOutputProps",
+                "Pick<ITreeProps",
+                "'levelPadding' | 'customIcon'>"
             ],
             "properties": [
                 {
@@ -15490,6 +15474,14 @@
                     "description": "Id компонента",
                     "required": false,
                     "type": "string",
+                    "example": null
+                },
+                {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "Кастомная иконка, заменяющая иконку раскрытия по умолчанию",
+                    "required": false,
+                    "type": "string | ReactElement",
                     "example": null
                 },
                 {
@@ -15527,10 +15519,10 @@
                 {
                     "name": "levelPadding",
                     "decorators": [],
-                    "description": "",
-                    "required": true,
+                    "description": "Расстояние вложенных элементов от родителя для каждого уровня",
+                    "required": false,
                     "type": "number",
-                    "example": null
+                    "example": "32"
                 },
                 {
                     "name": "selectedIds",
@@ -35555,7 +35547,7 @@
             "extends": [
                 "IColumnViewProps",
                 "Pick<ITreeTableProps",
-                "'levelPadding'>"
+                "'levelPadding' | 'customIcon'>"
             ],
             "properties": [
                 {
@@ -35572,6 +35564,14 @@
                     "description": "CSS-класс для ячейки со значением",
                     "required": false,
                     "type": "string",
+                    "example": null
+                },
+                {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "",
+                    "required": false,
+                    "type": "string | ReactElement",
                     "example": null
                 },
                 {
@@ -35759,7 +35759,7 @@
                 "Omit<IGridProps",
                 "'items'>",
                 "Pick<ITreeProps",
-                "'alwaysOpened' | 'levelPadding'>"
+                "'alwaysOpened' | 'levelPadding' | 'customIcon'>"
             ],
             "properties": [
                 {
@@ -35770,6 +35770,15 @@
                     "type": "boolean",
                     "example": null,
                     "defaultValue": "false"
+                },
+                {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "",
+                    "required": false,
+                    "type": "string | ReactElement",
+                    "example": null,
+                    "defaultValue": null
                 },
                 {
                     "name": "items",
@@ -37639,10 +37648,20 @@
             "description": "",
             "tags": {},
             "defaultProps": {
+                "alwaysAppendParentRoutePath": "true",
                 "autoScrollTop": "true"
             },
             "extends": [],
             "properties": [
+                {
+                    "name": "alwaysAppendParentRoutePath",
+                    "decorators": [],
+                    "description": "Флаг, который позволяет использовать вложенные роуты c указанием вложенного пути",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true",
+                    "defaultValue": "true"
+                },
                 {
                     "name": "autoScrollTop",
                     "decorators": [],
@@ -37752,6 +37771,14 @@
                     "example": null
                 },
                 {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "Кастомная иконка, заменяющая иконку раскрытия по умолчанию",
+                    "required": false,
+                    "type": "string | ReactElement",
+                    "example": null
+                },
+                {
                     "name": "hasIconExpandOnly",
                     "decorators": [],
                     "description": "Флаг, определяющий раскрывать вложенные элементы по клику на весь элемент или только на иконку",
@@ -37824,6 +37851,22 @@
                     "example": "2"
                 },
                 {
+                    "name": "showIcon",
+                    "decorators": [],
+                    "description": "Показать иконку c лева от элемента",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true"
+                },
+                {
+                    "name": "useSameSelectedItemId",
+                    "decorators": [],
+                    "description": "При повторном нажатии на выбранный элемент из дерева, он продолжит отображаться как активный.",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true"
+                },
+                {
                     "name": "view",
                     "decorators": [],
                     "description": "Переопределение view React компонента для кастомизации отображения элемента",
@@ -37860,11 +37903,19 @@
                     "example": null,
                     "parameters": [
                         {
-                            "name": "args",
+                            "name": "event",
                             "decorators": [],
-                            "description": "\n",
+                            "description": "",
                             "required": true,
-                            "type": "any[]",
+                            "type": "MouseEvent",
+                            "example": null
+                        },
+                        {
+                            "name": "item",
+                            "decorators": [],
+                            "description": "",
+                            "required": true,
+                            "type": "ITreeItem",
                             "example": null
                         }
                     ]
@@ -37883,7 +37934,9 @@
                 "hasIconExpandOnly": "false",
                 "itemsKey": "'items'",
                 "level": "0",
-                "levelPadding": "32"
+                "levelPadding": "32",
+                "showIcon": "true",
+                "useSameSelectedItemId": "true"
             },
             "extends": [
                 "Omit<ITreeConfig",
@@ -37923,6 +37976,15 @@
                     "description": "CSS-класс для элемента отображения",
                     "required": false,
                     "type": "string",
+                    "example": null,
+                    "defaultValue": null
+                },
+                {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "Кастомная иконка, заменяющая иконку раскрытия по умолчанию",
+                    "required": false,
+                    "type": "string | ReactElement",
                     "example": null,
                     "defaultValue": null
                 },
@@ -37999,6 +38061,24 @@
                     "defaultValue": null
                 },
                 {
+                    "name": "showIcon",
+                    "decorators": [],
+                    "description": "Показать иконку c лева от элемента",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true",
+                    "defaultValue": "true"
+                },
+                {
+                    "name": "useSameSelectedItemId",
+                    "decorators": [],
+                    "description": "При повторном нажатии на выбранный элемент из дерева, он продолжит отображаться как активный.",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true",
+                    "defaultValue": "true"
+                },
+                {
                     "name": "view",
                     "decorators": [],
                     "description": "Переопределение view React компонента для кастомизации отображения элемента",
@@ -38036,11 +38116,19 @@
                     "example": null,
                     "parameters": [
                         {
-                            "name": "args",
+                            "name": "event",
                             "decorators": [],
-                            "description": "\n",
+                            "description": "",
                             "required": true,
-                            "type": "any[]",
+                            "type": "MouseEvent",
+                            "example": null
+                        },
+                        {
+                            "name": "item",
+                            "decorators": [],
+                            "description": "",
+                            "required": true,
+                            "type": "ITreeItem",
                             "example": null
                         }
                     ]
@@ -38088,6 +38176,14 @@
                     "description": "CSS-класс для элемента отображения",
                     "required": false,
                     "type": "string",
+                    "example": null
+                },
+                {
+                    "name": "customIcon",
+                    "decorators": [],
+                    "description": "Кастомная иконка, заменяющая иконку раскрытия по умолчанию",
+                    "required": false,
+                    "type": "string | ReactElement",
                     "example": null
                 },
                 {
@@ -38155,6 +38251,22 @@
                     "example": "2"
                 },
                 {
+                    "name": "showIcon",
+                    "decorators": [],
+                    "description": "Показать иконку c лева от элемента",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true"
+                },
+                {
+                    "name": "useSameSelectedItemId",
+                    "decorators": [],
+                    "description": "При повторном нажатии на выбранный элемент из дерева, он продолжит отображаться как активный.",
+                    "required": false,
+                    "type": "boolean",
+                    "example": "true"
+                },
+                {
                     "name": "view",
                     "decorators": [],
                     "description": "Переопределение view React компонента для кастомизации отображения элемента",
@@ -38191,11 +38303,19 @@
                     "example": null,
                     "parameters": [
                         {
-                            "name": "args",
+                            "name": "event",
                             "decorators": [],
-                            "description": "\n",
+                            "description": "",
                             "required": true,
-                            "type": "any[]",
+                            "type": "MouseEvent",
+                            "example": null
+                        },
+                        {
+                            "name": "item",
+                            "decorators": [],
+                            "description": "",
+                            "required": true,
+                            "type": "ITreeItem",
                             "example": null
                         }
                     ]
@@ -39342,38 +39462,6 @@
             "tags": {},
             "properties": [
                 {
-                    "name": "accessTokenKey",
-                    "decorators": [],
-                    "description": "Ключ для хранения токена в куках",
-                    "required": false,
-                    "type": "string",
-                    "example": null
-                },
-                {
-                    "name": "apiUrl",
-                    "decorators": [],
-                    "description": "Url для http запросов",
-                    "required": false,
-                    "type": "string",
-                    "example": null
-                },
-                {
-                    "name": "clientStorageExpiresIn",
-                    "decorators": [],
-                    "description": "Срок хранения токена в хранилище в днях",
-                    "required": false,
-                    "type": "number",
-                    "example": null
-                },
-                {
-                    "name": "clientStorageName",
-                    "decorators": [],
-                    "description": "Имя хранилища для токена (local, session, или cookie)",
-                    "required": false,
-                    "type": "string",
-                    "example": null
-                },
-                {
                     "name": "refreshTokenKey",
                     "decorators": [],
                     "description": "Ключ токена авторизации для локального хранилища",
@@ -39390,312 +39478,7 @@
                     "example": null
                 }
             ],
-            "methods": [
-                {
-                    "name": "afterRequest",
-                    "decorators": [],
-                    "description": "Метод, который вызывается после запроса",
-                    "required": false,
-                    "type": "any",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "response",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "config",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "options",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "IHttpRequestOptions",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "delete",
-                    "decorators": [],
-                    "description": "Вызов метода delete",
-                    "required": false,
-                    "type": "any",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "url",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "params",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "{}",
-                            "example": null
-                        },
-                        {
-                            "name": "options",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "IHttpRequestOptions",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "get",
-                    "decorators": [],
-                    "description": "Вызов метода get",
-                    "required": false,
-                    "type": "any",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "url",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "params",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "{}",
-                            "example": null
-                        },
-                        {
-                            "name": "options",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "IHttpRequestOptions",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "getAccessToken",
-                    "decorators": [],
-                    "description": "Получение токена",
-                    "required": false,
-                    "type": "Promise",
-                    "example": null,
-                    "parameters": []
-                },
-                {
-                    "name": "getAxiosConfig",
-                    "decorators": [],
-                    "description": "Получение конфига для axios",
-                    "required": false,
-                    "type": "Promise",
-                    "example": null,
-                    "parameters": []
-                },
-                {
-                    "name": "getAxiosInstance",
-                    "decorators": [],
-                    "description": "Получение экземпляра axios",
-                    "required": false,
-                    "type": "Promise",
-                    "example": null,
-                    "parameters": []
-                },
-                {
-                    "name": "getUrl",
-                    "decorators": [],
-                    "description": "Получение url по методу",
-                    "required": false,
-                    "type": "string",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "method",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "string",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "onLogin",
-                    "decorators": [],
-                    "description": "Метод, который можно вызвать при login",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "params",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "{accessToken: string, refreshToken: string}",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "onLogout",
-                    "decorators": [],
-                    "description": "Метод, который можно вызвать при logout",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": []
-                },
-                {
-                    "name": "post",
-                    "decorators": [],
-                    "description": "Вызов метода post",
-                    "required": false,
-                    "type": "any",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "url",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "params",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "{}",
-                            "example": null
-                        },
-                        {
-                            "name": "options",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "IHttpRequestOptions",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "removeAccessToken",
-                    "decorators": [],
-                    "description": "Удаление токена",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": []
-                },
-                {
-                    "name": "resetConfig",
-                    "decorators": [],
-                    "description": "Сбросить конфиг",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": []
-                },
-                {
-                    "name": "send",
-                    "decorators": [],
-                    "description": "Вызов http-метода",
-                    "required": false,
-                    "type": "any",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "method",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "url",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "any",
-                            "example": null
-                        },
-                        {
-                            "name": "params",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "{}",
-                            "example": null
-                        },
-                        {
-                            "name": "options",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "IHttpRequestOptions",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "setAccessToken",
-                    "decorators": [],
-                    "description": "Изменение токена",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "value",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "string",
-                            "example": null
-                        }
-                    ]
-                },
-                {
-                    "name": "setCsrfToken",
-                    "decorators": [],
-                    "description": "Изменение csrf токена",
-                    "required": false,
-                    "type": "void",
-                    "example": null,
-                    "parameters": [
-                        {
-                            "name": "value",
-                            "decorators": [],
-                            "description": "",
-                            "required": true,
-                            "type": "string",
-                            "example": null
-                        }
-                    ]
-                }
-            ]
+            "methods": []
         },
         "components/LocaleComponent": {
             "name": "default",
