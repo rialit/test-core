@@ -19,6 +19,8 @@
     "@maskito/kit": "1.7.0",
     "@maskito/react": "^0.12.1",
     "@splidejs/react-splide": "^0.7.12",
+    "@steroidsjs/bootstrap": "^3.0.0-beta.127",
+    "@steroidsjs/core": "^3.0.0-beta.113",
     "axios": "^0.21.1",
     "connected-react-router": "^6.9.3",
     "dayjs": "^1.11.9",

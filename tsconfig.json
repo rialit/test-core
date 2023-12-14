@@ -9,14 +9,14 @@
 	  "isolatedModules": true,
 	  "outDir": "./dist",
 	  "skipLibCheck": true,
-	  "paths": {
-		 "@steroidsjs/core/*": [
-			"../react/src/*"
-		 ],
-		 "@steroidsjs/bootstrap/*": [
-			"../react-bootstrap/src/*"
-		 ]
-	  }
+	//   "paths": {
+	// 	 "@steroidsjs/core/*": [
+	// 		"../react/src/*"
+	// 	 ],
+	// 	 "@steroidsjs/bootstrap/*": [
+	// 		"../react-bootstrap/src/*"
+	// 	 ]
+	//   }
 	},
 	"include": [
 	  "src/**/*"
